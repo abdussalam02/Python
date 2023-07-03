@@ -81,7 +81,9 @@ class DoublyLinkedList:
             ....
         IndexError: list index out of range
         """
-        if not 0 <= index <= len(self):
+        length = len(self)
+
+        if not 0 <= index <= length:
             raise IndexError("list index out of range")
         new_node = Node(data)
         if self.head is None:
@@ -90,7 +92,7 @@ class DoublyLinkedList:
             self.head.previous = new_node
             new_node.next = self.head
             self.head = new_node
-        elif index == len(self):
+        elif index == length:
             self.tail.next = new_node
             new_node.previous = self.tail
             self.tail = new_node
@@ -131,15 +133,17 @@ class DoublyLinkedList:
             ....
         IndexError: list index out of range
         """
-        if not 0 <= index <= len(self) - 1:
+        length = len(self)
+
+        if not 0 <= index <= length - 1:
             raise IndexError("list index out of range")
         delete_node = self.head  # default first node
-        if len(self) == 1:
+        if length == 1:
             self.head = self.tail = None
         elif index == 0:
             self.head = self.head.next
             self.head.previous = None
-        elif index == len(self) - 1:
+        elif index == length - 1:
             delete_node = self.tail
             self.tail = self.tail.previous
             self.tail.next = None
@@ -194,13 +198,13 @@ def test_doubly_linked_list() -> None:
 
     try:
         linked_list.delete_head()
-        raise AssertionError()  # This should not happen.
+        raise AssertionError  # This should not happen.
     except IndexError:
         assert True  # This should happen.
 
     try:
         linked_list.delete_tail()
-        raise AssertionError()  # This should not happen.
+        raise AssertionError  # This should not happen.
     except IndexError:
         assert True  # This should happen.
 
